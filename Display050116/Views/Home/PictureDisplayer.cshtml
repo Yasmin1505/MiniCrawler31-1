@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<head title="PictureDisplayer">
+  <link rel="stylesheet" href="~/Content/MasonryStyle.css" type="text/css" /> 
+    <link rel="stylesheet" href="~/Content/ShakeStyle.css" type="text/css" />
+    <script src="~/Scripts/masonry.pkgd.js"></script>
+    <script> //For Masonry
+        $(document).ready(function () {
+            // init Masonry after all images have loaded
+            var $grid = $('.grid').imagesLoaded(function () {
+                $grid.masonry({
+                    itemSelector: '.grid-item',
+                    percentPosition: true,
+                    columnWidth: '.grid-sizer'
+                });
+            });
+        });
+    </script>
+</head>
+@{
+    ViewBag.Title = "PictureDisplayer";
+}
+@model IEnumerable<Display050116.Models.Picture>
+
+<h2 id="head2">PictureDisplayer</h2>
+<div id="grid" class="js-masonry" data-masonry-options='{ "itemSelector": ".item" }'>
+    <div class="grid-sizer"></div>
+   @foreach (var item in Model)
+    {
+      <div class="grid-item">
+        <img src=@item.PicUrl alt=@item.Name />
+      </div>
+    }  
+    <div class="shake-little">
+        <button type="button" onclick="onClickedLinkChange()">Click Me!!</button>
+        <script>
+            function onClickedLinkChange()
+            {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.status == 200 && xhttp.readyState == 4) {
+                        document.getElementById("btnChnageLink").innerHTML = xhttp.responseText;
+                    }
+                }
+                xhttp.open("GET", "~/Home/ActionFromAjax()", true);
+                xhttp.send();
+            }
+        </script>
+    </div>
+</div>
+
+
+  
+    
+

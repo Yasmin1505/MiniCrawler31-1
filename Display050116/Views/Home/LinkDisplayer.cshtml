@@ -1,0 +1,28 @@
+﻿<head title="LinkDisplayer">
+    <style>
+        a:link{color:green}
+        a:visited{color:azure}
+        a:hover{color:lightblue}
+        a:active{color:red}
+    </style>
+    <style>
+        .link-item{
+            background-color:aqua;
+            border-bottom:solid
+        }
+    </style>
+</head>
+@{
+    ViewBag.Title = "LinkDisplayer";
+}
+@model IEnumerable<string>
+
+<h2>LinkDisplayer</h2>
+<div class="row col-lg-4">
+    @foreach (var item in Model)
+    {
+        <div class="link-item">
+            <a href="@item">@item</a>
+        </div>
+    }
+</div>

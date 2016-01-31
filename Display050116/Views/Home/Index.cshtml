@@ -1,0 +1,66 @@
+﻿<!DOCUMENT html> 
+<html lang="en">
+<head title="ImageDisplayer">
+    <script src="~/Scripts/masonry.pkgd.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery-ui.css" />
+    <script src=" ~/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery-ui.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $("#tags").autocomplete({
+                source: ["argentina", "albenia", "austria", "belgium", "beliz", "brazil", "cambodia", "chad", "chile", "denemark", "egypt", "fiji", "gabon",
+                "haiti", "india", "israel", "italy", "japan", "laos", "latvia", "lebanon", "libya", "mali", "malta", "maldieves"]
+            , minLength: 0
+            });
+        });
+    </script>
+    <link rel="stylesheet" type="text/css" href="~/Content/ShakeStyle.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/LoadingStyle.css" />
+    <script>
+        function validate() {
+            if ($('#txtUrl').val().length > 0) {
+                $("btsSubmit[type=submit]").prop("disabled", false);
+                this.form.submit();
+            }
+            else {
+                $("btsSubmit[type=submit]").prop("disabled", true);
+            }
+        }
+    </script>
+
+</head>
+@{
+    ViewBag.Title = "Home Page";
+}
+<body>
+    <div class="jumbotron">
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <h3> I would like to see Pictures from: </h3>
+            @using (Html.BeginForm("GetData", "Home", FormMethod.Get))
+            {
+                @Html.TextBox("txtUrl", null, new { type = "url", required = "required" }) <br />
+                <span>Images: </span>@Html.RadioButton("rbGroup", "Images", true)
+                <span> Links: </span>@Html.RadioButton("rbGroup", "Links", false)<br />
+                <button onclick="validate()" name="btnSubmit">Go!</button><br>
+            }
+            <div class="shake-rotate">
+                @using (Html.BeginForm("SurpriseMe", "Home", FormMethod.Get))
+                {
+                    <button onclick="this.submit()" name="btnSuprise" id="btnSuprise">Suprise Me!</button> <br />
+                }
+            </div>
+            <div class="ui-widget">
+                <label for="tags">Where are you from: </label> <input id="tags" />
+            </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</body>
+</html>
